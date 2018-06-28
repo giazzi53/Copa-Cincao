@@ -25,7 +25,6 @@ public class Copa {
     private int partidasJogadas;
     private int partidasJogadasSemi;
     private Jogador melhorSegundo;
-    //private Jogador[] jogadoresMataMata = new Jogador[4];
     private List <Jogador> jogadoresMataMata = new ArrayList();
     private List <Jogo> semis = new ArrayList();
     private List<Jogador> jogadoresFinal = new ArrayList();
@@ -40,7 +39,6 @@ public class Copa {
         for(int a = 0; a < 2; a++){
             semis.add(null);
         }
-        
     }
     
     public Jogador getCampeao() {
@@ -97,8 +95,6 @@ public class Copa {
         this.finalCopa = finalCopa;
     }
     
-    
-    
     boolean jaGerouSemis = false;
     public void geraSemis(){
         if(!jaGerouSemis){
@@ -106,18 +102,12 @@ public class Copa {
             int cont = 0;
             int auxNumJogo = 10;
             for(int a = 0; a < 2; a++){
-                //MataMata semi = new MataMata();
                 Jogo semi = new Jogo(jogadoresMataMata.get(cont), jogadoresMataMata.get(cont + 1), auxNumJogo);   
-                //semi.setSemi(jogadoresMataMata.get(cont), jogadoresMataMata.get(cont + 1));
                 cont += 2;
                 auxNumJogo++;
                 semis.set(a,semi);
             }
             jaGerouSemis = true;
-            
-            //definindo os jogadores da final
-            
-            
         }
     }   
     boolean jaGerouFinal = false;
@@ -130,48 +120,21 @@ public class Copa {
                 } else if(s.getJog2().getGolsMataMata() > s.getJog1().getGolsMataMata()){
                     jogadoresFinal.add(s.getJog2());
                 } 
-                
-                    /*else{
-                    System.out.println("\nComo houve um empate, a partida deve ser decidia nos penaltis");
-                    System.out.print("\nDigite os penaltis convertidos por " + s.getJog1().getNome());
-                    int pen1 = sc.nextInt();
-                    System.out.print("\nDigite os penaltis convertidos por " + s.getJog2().getNome());
-                    int pen2 = sc.nextInt();
-
-                }*/
-                //System.out.println("aaa" + x[0] + " X " + x[2]);
-                
-             }
+            }
             Jogo finalCopa = new Jogo(jogadoresFinal.get(0), jogadoresFinal.get(1), 12); 
             this.finalCopa = finalCopa;
             jaGerouFinal = true;
         }
-        //this.setFinalCopa(jogadoresFinal.get(0), jogadoresFinal.get(1));
     }
     
-    //boolean jaGerouFinal = false;
     public Jogador defineCampeao(int gols1, int gols2){
-        
         if(gols1 > gols2){
             campeao = jogadoresFinal.get(0);
         } else{
             campeao = jogadoresFinal.get(1);
         }
         return campeao;
-        //if(!jaGerouFinal){
-        
-        //System.out.println("\n(12) " + jogadoresFinal.get(0).getNome() + " e " + jogadoresFinal.get(1).getNome());
-        
-        
-        //Jogo final = new Jogo(, 12);
-            //jaGerouFinal = true;
-        //}
     }
-    
-    /*public void jogaFinal(int gols1, int gols2){
-        Jogo finalCopa = new Jogo(jogadoresFinal.get(0), jogadoresFinal.get(1), 12);
-        
-    }*/
     
     public void printaSemis(){
         System.out.println("\n     Jogos das semi finais");
@@ -193,7 +156,6 @@ public class Copa {
             g.arrumaGrupo();
             System.out.println("\n          Grupo " + g.getNumGrupo());
             g.getListaJog();
-            
         }
     }
     
@@ -253,16 +215,9 @@ public class Copa {
                         melhorSegundo = grupos.get(a+1).getSegundo();
                     }
                 }
-                
             }
-            /*if(grupos.get(a).getJogGrupo().get(1).getPts() > grupos.get(a+1).getJogGrupo().get(1).getPts()){
-                
-            }*/
-            
         }
         System.out.println(melhorSegundo.getNome() + " passou pois foi o melhor segundo colocado da copa");
-        //jogadoresMataMata[3] = melhorSegundo;
         jogadoresMataMata.set(3,melhorSegundo);
     }
-    
 }
