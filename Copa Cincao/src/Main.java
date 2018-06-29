@@ -4,14 +4,22 @@ Bug: se a funcao de passar de fase der errado (opcao 5),
 escolher essa opcao novamente, pois na segunda vai certo. Esse erro nao acontece todas as vezes
 
 */
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 
 public class Main {
-    
     public static int fazMenu(){
         Scanner sc = new Scanner(System.in);
+        /*menu.add("\n          MENU  ");
+        menu.add("\n1 - Mostrar a tabela da copa");
+        menu.add("\n2 - Mostrar partidas");
+        menu.add("\n3 - Mostrar resultados até aqui");
+        menu.add("\n4 - Inserir placar");
+        menu.add("\n5 - Ir para as semi finais");
+        menu.add("\n6 - Ir para a final");
+        menu.add("\n0 - Sair");*/
         System.out.println("\n          MENU  " +
                            "\n1 - Mostrar a tabela da copa" +
                            "\n2 - Mostrar partidas" +
@@ -31,46 +39,56 @@ public class Main {
     }
     
     public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-        Copa copa = new Copa();
+        Scanner sc = new Scanner(System.in); //criando um input
+        
+        System.out.print("Digte o numero de jogadores que participarão dessa copa: ");
+        String x = sc.nextLine();                       //feita essa conversao para corrigir o bug do Netbeans
+        int numJogadores = Integer.parseInt(x);
+        while(numJogadores != 9){
+            System.out.print("\nDesculpe, a Copa Cincao nao suporta esse numero de jogadores. Digite novamente: ");
+            x = sc.nextLine();
+            numJogadores = Integer.parseInt(x);
+        }
+        
+        Copa copa = new Copa(); //criando a copa
+        
         int contPartidasJogadas = 0;
         int partidasJogadasSemi = 0;
-        System.out.println("\nPara que a Copa Cincão seja realizada, são necessários 9 jogadores");
-        for(int cont = 1; cont < 10; cont++){
+        //System.out.println("\nPara que a Copa Cincão seja realizada, são necessários 9 jogadores");
+        for(int cont = 1; cont < numJogadores+1; cont++){
             System.out.print("\nDigite o nome do jogador " + cont + ": ");
             String nomeJog = sc.nextLine();
             
             System.out.print("\nDigite o time do " + nomeJog + ": ");
             String nomeTime = sc.nextLine();
-            Time time = new Time(nomeTime);
+            Time time = new Time(nomeTime); //criando o time
             
-            Jogador jogador = new Jogador(nomeJog, time);
+            Jogador jogador = new Jogador(nomeJog, time); //criando o jogador
             
-            //adicionando jogadores na copa
-            copa.addJogCopa(jogador);
+            copa.addJogCopa(jogador); //adicionando o jogador na copa
         }
         
-        //separando os grupos
-        copa.organizaGrupos();
+        copa.organizaGrupos(); //separando os grupos
         
-        //organizando os jogos
-        copa.addNumJogo();
-        List <Integer> numJogos = copa.getNumJogos();
+        //organizando os jogos de cada grupo
         int aux = 1;
-        for(int a = 0; a < 3; a++){
-            
-            //System.out.println(numJogos);
-            copa.getGrupo(a).organizaJogos(aux);
+        for(int a = 0; a < copa.getNumGrupos(); a++){
+            copa.getGrupo(a).organizaJogos(aux, copa.getNumGrupos());
             aux+=1;
         }
+        //
         
         boolean sair = false;
         //apresentando o menu
         int op = fazMenu();
         while(!sair){
-            for(int a = 0; a < 3; a++){
+            for(int a = 0; a < copa.getNumGrupos(); a++){
+                /*Loop para fazer cada grupo ficar dinamico, ou seja, o que tem mais pontos fica 
+                em cima, e vai decrescendo ate chegar ao que tem menos pontos, que fica em baixo*/
                 copa.getGrupo(a).arrumaGrupo();
             }
+            
+            ///////CONTINUAR A REFATORAR A PARTIR DESTE PONTO
             
             if(op == 1){
                 //apresentando os grupos

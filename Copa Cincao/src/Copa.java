@@ -21,7 +21,9 @@ public class Copa {
     private Jogador campeao;
     private List <Jogador> listaJog = new ArrayList();
     private List<Grupo> grupos = new ArrayList();
-    private List<Integer> auxJogos = new ArrayList();
+    private int numGrupos;
+    private int numJogGrupo;
+    //private List<Integer> auxJogos = new ArrayList();
     private int partidasJogadas;
     private int partidasJogadasSemi;
     private Jogador melhorSegundo;
@@ -91,8 +93,37 @@ public class Copa {
         return finalCopa;
     }
 
+    public int getNumGrupos() {
+        return numGrupos;
+    }
+
+    public void setNumGrupos(int numGrupos) {
+        this.numGrupos = numGrupos;
+    }
+    
+    
+
     public void setFinalCopa(Jogo finalCopa) {
         this.finalCopa = finalCopa;
+    }
+    
+    public void organizaGrupos(){
+        Collections.shuffle(listaJog); //embaralhando os jogadores
+        int cont = 0; //variavel criada como indice para adicionar um jogador da lista de jogadores em um grupo
+        
+        if(listaJog.size() == 9){
+            numGrupos = 3;
+            numJogGrupo = 3;
+        }
+        
+        for(int a = 1; a < numGrupos + 1; a++){
+            Grupo grupo = new Grupo(a); //criando os grupos
+            grupos.add(grupo);
+            for(int b = 0; b < numJogGrupo; b++){
+                grupo.addJogGrupo(listaJog.get(cont)); //adicionando os jogadores em um grupo
+                cont++;
+            }
+        }
     }
     
     boolean jaGerouSemis = false;
@@ -159,7 +190,7 @@ public class Copa {
         }
     }
     
-    public void addNumJogo(){
+    /*public void addNumJogo(){
         int cont = 1;
         for(int a = 1; a < 4; a++){
             for(int b = 1; b < 4; b++){
@@ -167,24 +198,11 @@ public class Copa {
                 cont++;
             }
         }
-    }
+    }*/
     
-    public List getNumJogos(){
+    /*public List getNumJogos(){
         return auxJogos;
-    }
-    
-    public void organizaGrupos(){
-        Collections.shuffle(listaJog);
-        int cont = 0;
-        for(int a = 1; a < 4; a++){
-            Grupo grupo = new Grupo(a);
-            grupos.add(grupo);
-            for(int b = 0; b < 3; b++){
-                grupo.addJogGrupo(listaJog.get(cont));
-                cont++;
-            }
-        }
-    }
+    }*/
     
     public void passarFase(){
         System.out.println("\n         Fase mata mata");

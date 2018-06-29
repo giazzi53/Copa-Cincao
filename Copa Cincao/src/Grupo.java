@@ -21,6 +21,8 @@ public class Grupo {
     private Jogador primeiro;
     private Jogador segundo;
     
+    
+    
     public Grupo(){
         
     }
@@ -48,8 +50,7 @@ public class Grupo {
     public void setNumGrupo(int numGrupo) {
         this.numGrupo = numGrupo;
     }
-    
-    
+
     public void addJogGrupo(Jogador jogador){
         listaJog.add(jogador);
     }
@@ -78,24 +79,30 @@ public class Grupo {
     
     
     
-    public void organizaJogos(int cont){
-        //separando as disputas
-        int numJogo = 0;
+    public void organizaJogos(int cont, int numGrupos){
         
-        //System.out.println("aaaa");
-        //System.out.println(result);
+        /*Separando as disputas dos grupos. Os numeros dos jogos sao adicionados ao numero de grupos
+        para que os jogos nao fiquem nas mesmas sequencias dos grupos (no caso de 9 jogadores, um jogo
+        é adicionado a 3, pois esse é o numero de grupos). Por exemlo:
+        
+                            Em vez de                                            Deve ficar
+        
+          Grupo1            Grupo2            Grupo3       |       Grupo1            Grupo2            Grupo3
+        (1) A x B         (4) D x E         (7) G x H      |     (1) A x B         (2) D x E         (3) G x H
+        (2) A x C         (5) D x F         (8) G x I      |     (4) A x C         (5) D x F         (6) G x I
+        (3) B x C         (6) E x F         (9) H x I      |     (7) B x C         (8) E x F         (9) H x I
+        
+        */
+        
+        int auxNumJogo = 0;
         for(int a = 0; a < listaJog.size(); a++){
             for(int b = a+1; b < listaJog.size(); b++){
-                int result = cont + numJogo;
-                Jogo jogo = new Jogo(listaJog.get(a), listaJog.get(b), result);   
+                int numJogo = cont + auxNumJogo;
+                Jogo jogo = new Jogo(listaJog.get(a), listaJog.get(b), numJogo);   
                 jogos.add(jogo);
-                numJogo += 3;
+                auxNumJogo += numGrupos;
             }
-         } 
-        
-        //separando os numeros dos jogos
-        
-        
+        }
     }
     
     public void getJogos(){
@@ -108,66 +115,35 @@ public class Grupo {
     public Jogo getJogo(int num){
         return jogos.get(num);
     }
-    
        
     public void arrumaGrupo(){
-        /*//for(int a = 0; a < listaJog.size(); a++){
-        for(Jogador j : listaJog){
-            if(j.){
-                
-            }
-        }*/
+        /*Funcao que faz os grupos ficarem dinamicos, ou seja, o que tem mais pontos fica 
+        em cima, e vai decrescendo ate chegar ao que tem menos pontos, que fica em baixo*/
+        
         List <Jogador> auxListaJog = new ArrayList();
         auxListaJog.add(null);
-        //auxListaJog.set(0, listaJog.get(0));
         
         for(int a = 0; a < listaJog.size()-1; a++){
             for(int b = a+1; b < listaJog.size(); b++){
                 if(listaJog.get(a).getPts() > listaJog.get(b).getPts()){
                     System.out.print("");
-                    /*listaJog.set(a, listaJog.get(a));
-                    listaJog.set(b, listaJog.get(b));*/
+                    //nao há ação, pois o A ja esta acima do B
+                    //deixei esse if para facilitar na compreensao, caso me esqueça
                 } else if(listaJog.get(b).getPts() > listaJog.get(a).getPts()){
                     auxListaJog.set(0,listaJog.get(b));
                     listaJog.set(b, listaJog.get(a));
                     listaJog.set(a, auxListaJog.get(0));
-                } else{
+                } else{ 
+                    //se os dois jogadores tiverem a mesma pontuacao, o criterio de desempate é o saldo de gols
                     if(listaJog.get(a).getSaldo() >= listaJog.get(b).getSaldo()){
                         System.out.print("");
-                        /*listaJog.set(a, listaJog.get(a));
-                        listaJog.set(b, listaJog.get(b));*/
                     } else if(listaJog.get(b).getSaldo() > listaJog.get(a).getSaldo()){
                         auxListaJog.set(0,listaJog.get(b));
                         listaJog.set(b, listaJog.get(a));
                         listaJog.set(a, auxListaJog.get(0));
-                    } /*else{
-                        //System.out.println("\nOs dois jogadores estão empatados em pontos e saldo de gols. O resultado será sorteado");
-                        Random r = new Random();
-                        int aleatorio = r.nextInt(2);
-                        if (aleatorio == 0){
-                            System.out.print("");
-                            //listaJog.set(a, listaJog.get(a));
-                        } else{
-                            auxListaJog.set(0,listaJog.get(b));
-                            listaJog.set(b, listaJog.get(a));
-                            listaJog.set(a, auxListaJog.get(0));
-                        }
-                        //System.out.println("\nO jogador sorteado foi o " + maiorJog.getNome());
-                    }*/
-                  
+                    } 
                 }
-            }
-            
-            
+            }        
         }
-        /*for(int a = 0; a < listaJog.size()-1; a++){
-            for(int b = a+1; b < listaJog.size(); b++){
-                //auxListaJog.add(listaJog.get(a).getMelhorJog(listaJog.get(a), listaJog.get(b)));
-                //auxListaJog.add(listaJog.get(a).getMelhorJog(listaJog.get(a), listaJog.get(a+1)));
-            }
-            
-        }
-        
-        listaJog = auxListaJog;*/
     }
 }
