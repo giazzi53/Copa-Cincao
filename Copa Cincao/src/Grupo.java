@@ -18,6 +18,7 @@ public class Grupo {
     private int numGrupo;
     private List<Jogador> listaJog = new ArrayList();
     private List<Jogo> jogos = new ArrayList(); 
+    private int numJogos;
     private Jogador primeiro;
     private Jogador segundo;
     
@@ -43,9 +44,7 @@ public class Grupo {
 
     public void setListaJog(List<Jogador> listaJog) {
         this.listaJog = listaJog;
-    }
-    
-    
+    }  
 
     public void setNumGrupo(int numGrupo) {
         this.numGrupo = numGrupo;
@@ -93,7 +92,6 @@ public class Grupo {
         (3) B x C         (6) E x F         (9) H x I      |     (7) B x C         (8) E x F         (9) H x I
         
         */
-        
         int auxNumJogo = 0;
         for(int a = 0; a < listaJog.size(); a++){
             for(int b = a+1; b < listaJog.size(); b++){
@@ -110,6 +108,11 @@ public class Grupo {
         for(Jogo j : jogos){
             System.out.println(" (" + j.getNumJogo() + ") " + j.getJogo());
         }
+    }
+    
+    public int getNumJogos(){
+        numJogos = jogos.size();
+        return numJogos;
     }
     
     public Jogo getJogo(int num){

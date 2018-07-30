@@ -41,7 +41,7 @@ public class Jogador {
     
     public void setResult(int pts, int saldo){
         this.pts += pts;
-        this.saldo = saldo;
+        this.saldo += saldo;
     }
 
     public int getSaldo() {

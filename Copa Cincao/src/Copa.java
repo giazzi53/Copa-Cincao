@@ -101,6 +101,10 @@ public class Copa {
         this.numGrupos = numGrupos;
     }
     
+    public int getNumJogGrupo(){
+        return this.numJogGrupo;
+    }
+    
     
 
     public void setFinalCopa(Jogo finalCopa) {
@@ -208,13 +212,14 @@ public class Copa {
         System.out.println("\n         Fase mata mata");
         
         //mostrando os primeiros colocados de cada grupo
-        for(int a = 0; a < grupos.size(); a++){
+        for(int a = 0; a < numGrupos; a++){
             System.out.println(grupos.get(a).getPrimeiro().getNome() + " passou pois ficou em primeiro do Grupo " + grupos.get(a).getNumGrupo());
             jogadoresMataMata.set(a,grupos.get(a).getPrimeiro());
         }
         
-        //definindo o melhor segundo colocado
-        for(int a = 0; a < grupos.size()-1; a++){
+        //definindo o melhor segundo colocado. Se a pontuacao for igual, o criterio de desempate eh o saldo de gols. 
+        //Se o saldo tambem for igual, o melhor segundo colocado eh definido por um sorteio
+        for(int a = 0; a < numGrupos - 1; a++){
             if(grupos.get(a).getSegundo().getPts() > grupos.get(a+1).getSegundo().getPts()){
                 melhorSegundo = grupos.get(a).getSegundo();
             } else if(grupos.get(a+1).getSegundo().getPts() > grupos.get(a).getSegundo().getPts()){
