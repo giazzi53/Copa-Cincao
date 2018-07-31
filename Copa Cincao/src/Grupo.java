@@ -22,12 +22,6 @@ public class Grupo {
     private Jogador primeiro;
     private Jogador segundo;
     
-    
-    
-    public Grupo(){
-        
-    }
-    
     public Grupo(int numGrupo){
         this.numGrupo = numGrupo;
     }
@@ -59,7 +53,8 @@ public class Grupo {
     }
 
     public Jogador getPrimeiro() {
-        return listaJog.get(0);
+        this.primeiro = listaJog.get(0);
+        return this.primeiro;
     }
 
     public void setPrimeiro(Jogador primeiro) {
@@ -67,16 +62,13 @@ public class Grupo {
     }
 
     public Jogador getSegundo() {
-        return listaJog.get(1);
+        this.segundo = listaJog.get(1);
+        return this.segundo;
     }
 
     public void setSegundo(Jogador segundo) {
         this.segundo = segundo;
-    }
-    
-    
-    
-    
+    }  
     
     public void organizaJogos(int cont, int numGrupos){
         
@@ -104,7 +96,6 @@ public class Grupo {
     }
     
     public void getJogos(){
-//        Collections.sort(jogos);
         for(Jogo j : jogos){
             System.out.println(" (" + j.getNumJogo() + ") " + j.getJogo());
         }

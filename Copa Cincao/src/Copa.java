@@ -24,7 +24,7 @@ public class Copa {
     private int numGrupos;
     private int numJogGrupo;
     //private List<Integer> auxJogos = new ArrayList();
-    private int partidasJogadas;
+    private int partidasJogadasGrupos;
     private int partidasJogadasSemi;
     private Jogador melhorSegundo;
     private List <Jogador> jogadoresMataMata = new ArrayList();
@@ -69,12 +69,12 @@ public class Copa {
         return this.grupos.get(num);
     }
 
-    public int getPartidasJogadas() {
-        return partidasJogadas;
+    public int getPartidasJogadasGrupos() {
+        return partidasJogadasGrupos;
     }
 
-    public void setPartidasJogadas(int partidasJogadas) {
-        this.partidasJogadas = partidasJogadas;
+    public void setPartidasJogadasGrupos(int partidasJogadasGrupos) {
+        this.partidasJogadasGrupos = partidasJogadasGrupos;
     }
 
     public int getPartidasJogadasSemi() {
@@ -105,8 +105,6 @@ public class Copa {
         return this.numJogGrupo;
     }
     
-    
-
     public void setFinalCopa(Jogo finalCopa) {
         this.finalCopa = finalCopa;
     }
@@ -144,9 +142,9 @@ public class Copa {
             }
             jaGerouSemis = true;
         }
-    }   
-    boolean jaGerouFinal = false;
+    }
     
+    boolean jaGerouFinal = false;
     public void passarFinal(){
         if(!jaGerouFinal){
             for(Jogo s : semis){
@@ -194,20 +192,6 @@ public class Copa {
         }
     }
     
-    /*public void addNumJogo(){
-        int cont = 1;
-        for(int a = 1; a < 4; a++){
-            for(int b = 1; b < 4; b++){
-                auxJogos.add(cont);
-                cont++;
-            }
-        }
-    }*/
-    
-    /*public List getNumJogos(){
-        return auxJogos;
-    }*/
-    
     public void passarFase(){
         System.out.println("\n         Fase mata mata");
         
@@ -221,6 +205,7 @@ public class Copa {
         //Se o saldo tambem for igual, o melhor segundo colocado eh definido por um sorteio
         for(int a = 0; a < numGrupos - 1; a++){
             if(grupos.get(a).getSegundo().getPts() > grupos.get(a+1).getSegundo().getPts()){
+                System.out.println("grupo de cima tem o melhor segundo");
                 melhorSegundo = grupos.get(a).getSegundo();
             } else if(grupos.get(a+1).getSegundo().getPts() > grupos.get(a).getSegundo().getPts()){
                 melhorSegundo = grupos.get(a+1).getSegundo();
