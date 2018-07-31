@@ -56,11 +56,11 @@ public class Jogo {
         return placar;
     }
     
-    boolean jaFoi = false;
+    //boolean jaFoi = false;
     public void setPlacar(int gols1, int gols2){
         //placar = gols1 + " X " + gols2;
         
-        if(!jaFoi){
+        //if(!jaFoi){
             int saldo1 = gols1 - gols2;
             int saldo2 = gols2 - gols1;
             if(gols1 > gols2){
@@ -76,9 +76,9 @@ public class Jogo {
             
             placar = gols1 + " X " + gols2;
                     
-        } else{
+        /*} else{
             System.out.println("\nEsta partida ja foi jogada, ela ja possui um placar");
         }
-        jaFoi = true;
+        jaFoi = true;*/
     }
 }

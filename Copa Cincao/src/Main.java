@@ -66,10 +66,10 @@ public class Main {
         copa.organizaGrupos(); //separando os grupos
         
         //organizando os jogos de cada grupo
-        int aux = 1;
+        //int aux = 1;
         for(int a = 0; a < copa.getNumGrupos(); a++){
-            copa.getGrupo(a).organizaJogos(aux, copa.getNumGrupos());
-            aux+=1;
+            copa.getGrupo(a).organizaJogos(a+1, copa.getNumGrupos());
+            //aux+=1;
         }
         //
         
@@ -127,17 +127,20 @@ public class Main {
                         System.out.print("");
                     } else{
                        for(int a = 0; a < copa.getNumGrupos(); a++){
-                           for(int b = 0; b < copa.getNumJogGrupo(); b++){
-                               if(op2 == copa.getGrupo(b).getJogo(a).getNumJogo()){
-                                  System.out.println("\nDefinindo placar para o jogo " + op2 + ": " + copa.getGrupo(b).getJogo(a).getJogo());
-                                  System.out.print("\nDigite os gols do " + copa.getGrupo(b).getJogo(a).getJog1().getNome() + ": ");
-                                  int gols1 = sc.nextInt();
-                                  System.out.print("\nDigite os gols do " + copa.getGrupo(b).getJogo(a).getJog2().getNome() + ": ");
-                                  int gols2 = sc.nextInt();
-
-                                  copa.getGrupo(b).getJogo(a).setPlacar(gols1,gols2);
-                                  contPartidasJogadas ++;
-                                  copa.setPartidasJogadas(contPartidasJogadas);
+                            for(int b = 0; b < copa.getNumJogGrupo(); b++){
+                                if(op2 == copa.getGrupo(b).getJogo(a).getNumJogo()){
+                                    if("".equals(copa.getGrupo(b).getJogo(a).getPlacar())){ //se o placar nao for vazio, coloque o placar                                  System.out.println("\nDefinindo placar para o jogo " + op2 + ": " + copa.getGrupo(b).getJogo(a).getJogo());
+                                        System.out.println("\nDefinindo placar para o jogo " + op2 + ": " + copa.getGrupo(b).getJogo(a).getJogo());                                       System.out.print("\nDigite os gols do " + copa.getGrupo(b).getJogo(a).getJog1().getNome() + ": ");
+                                        int gols1 = sc.nextInt();
+                                        System.out.print("\nDigite os gols do " + copa.getGrupo(b).getJogo(a).getJog2().getNome() + ": ");
+                                        int gols2 = sc.nextInt();
+                                        copa.getGrupo(b).getJogo(a).setPlacar(gols1,gols2);
+                                        contPartidasJogadas ++;
+                                        copa.setPartidasJogadas(contPartidasJogadas);
+                                    } else{
+                                      System.out.println("\nEsta partida ja foi jogada, ela ja possui um placar");
+                                    }
+                                  
                                }
 
                             }
@@ -145,16 +148,8 @@ public class Main {
                     }
                 } else if(op == 5){
                     //verificando se todas as partidas ja foram jogadas para passar para a proxima fase
-                                       
                     if(copa.getPartidasJogadas() == 9){
-                        copa.passarFase();
-                        
-                        
-                    
-                    ///////CONTINUAR A REFATORAR A PARTIR DESTE PONTO
-                    
-                    
-                    
+                        copa.passarFase();     
                         copa.geraSemis();
                         copa.printaSemis();
                         System.out.print("(0) Voltar");
@@ -167,35 +162,44 @@ public class Main {
                         } if(op3 == 0){
                             System.out.print("");
                         } else{
-                            System.out.println("\nDefinindo placar para o jogo " + op3 + ": " + copa.getSemi(op3-10).getJogo());
-                            System.out.print("\nDigite os gols do " + copa.getSemi(op3-10).getJog1().getNome() + ": ");
-                            int gols1 = sc.nextInt();
-                            //copa.getSemi(op3-10).getJog1().setGolsMataMata(gols1);
-                            System.out.print("\nDigite os gols do " + copa.getSemi(op3-10).getJog2().getNome() + ": ");
-                            int gols2 = sc.nextInt();
-                            //copa.getSemi(op3-10).getJog2().setGolsMataMata(gols2);
-                            while(gols1 == gols2){
-                                System.out.println("\nComo houve um empate, a partida deve ser decidia nos penaltis");
-                                System.out.print("\nDigite os penaltis convertidos por " + copa.getSemi(op3-10).getJog1().getNome() + ": ");
-                                int pen1 = sc.nextInt();
-                                System.out.print("\nDigite os penaltis convertidos por " + copa.getSemi(op3-10).getJog2().getNome() + ": ");
-                                int pen2 = sc.nextInt();
-                                gols1 = pen1;
-                                gols2 = pen2;
-                                
-                            } 
-                            
-                            copa.getSemi(op3-10).setPlacar(gols1, gols2);
-                            copa.getSemi(op3-10).getJog1().setGolsMataMata(gols1);
-                            copa.getSemi(op3-10).getJog2().setGolsMataMata(gols2);
-                            
-                            partidasJogadasSemi ++;
-                            copa.setPartidasJogadasSemi(partidasJogadasSemi);
+                            if("".equals(copa.getSemi(op3-10).getPlacar())){                               
+                                System.out.println("\nDefinindo placar para o jogo " + op3 + ": " + copa.getSemi(op3-10).getJogo());
+                                System.out.print("\nDigite os gols do " + copa.getSemi(op3-10).getJog1().getNome() + ": ");
+                                int gols1 = sc.nextInt();
+                                //copa.getSemi(op3-10).getJog1().setGolsMataMata(gols1);
+                                System.out.print("\nDigite os gols do " + copa.getSemi(op3-10).getJog2().getNome() + ": ");
+                                int gols2 = sc.nextInt();
+                                //copa.getSemi(op3-10).getJog2().setGolsMataMata(gols2);
+                                while(gols1 == gols2){
+                                    System.out.println("\nComo houve um empate, a partida deve ser decidia nos penaltis");
+                                    System.out.print("\nDigite os penaltis convertidos por " + copa.getSemi(op3-10).getJog1().getNome() + ": ");
+                                    int pen1 = sc.nextInt();
+                                    System.out.print("\nDigite os penaltis convertidos por " + copa.getSemi(op3-10).getJog2().getNome() + ": ");
+                                    int pen2 = sc.nextInt();
+                                    gols1 = pen1;
+                                    gols2 = pen2;
+
+                                } 
+
+                                copa.getSemi(op3-10).setPlacar(gols1, gols2);
+                                copa.getSemi(op3-10).getJog1().setGolsMataMata(gols1);
+                                copa.getSemi(op3-10).getJog2().setGolsMataMata(gols2);
+
+                                partidasJogadasSemi ++;
+                                copa.setPartidasJogadasSemi(partidasJogadasSemi);
+                            } else{
+                                System.out.println("\nEsta partida ja foi jogada, ela ja possui um placar");
+                            }
                         }
                        
                     } else{
                         System.out.println("\nAinda nao eh possivel ir para as semi finais. Todas as partidas da fase de grupos precisam ser jogadas");
                     }
+                    
+                    
+                    ///////CONTINUAR A REFATORAR A PARTIR DESTE PONTO
+                    
+                    
                 } else if(op == 6){
                     if(copa.getPartidasJogadasSemi() == 2){
                         System.out.println("\n        Final da copa");
