@@ -74,7 +74,7 @@ public class Main {
             }
             
             if(op == 1){
-                System.out.println("");
+                //System.out.println("");
                 //apresentando os grupos e as estatísticas
                 copa.printaGrupos();
             } else if(op == 2){
@@ -136,6 +136,11 @@ public class Main {
                     copa.passarFase();     
                     copa.geraSemis();
                     copa.printaSemis();
+                    
+                    
+                    ///////CONTINUAR A REFATORAR A PARTIR DESTE PONTO
+                    
+                    
                     System.out.print("(0) Voltar");
                     System.out.println("");
                     System.out.print("\nDigite o numero do jogo que deseja inserir um placar, ou 0 para voltar: ");
@@ -179,10 +184,6 @@ public class Main {
                 } else{
                     System.out.println("\nAinda nao eh possivel ir para as semi finais. Todas as partidas da fase de grupos precisam ser jogadas");
                 }
-                    
-                    
-                    ///////CONTINUAR A REFATORAR A PARTIR DESTE PONTO
-                    
                     
             } else if(op == 6){
                 if(copa.getPartidasJogadasSemi() == 2){

@@ -203,28 +203,35 @@ public class Copa {
         
         //definindo o melhor segundo colocado. Se a pontuacao for igual, o criterio de desempate eh o saldo de gols. 
         //Se o saldo tambem for igual, o melhor segundo colocado eh definido por um sorteio
-        for(int a = 0; a < numGrupos - 1; a++){
-            if(grupos.get(a).getSegundo().getPts() > grupos.get(a+1).getSegundo().getPts()){
-                System.out.println("grupo de cima tem o melhor segundo");
+        
+        int auxMelhorSegundoPts = -1000;
+        int auxMelhorSegundoSaldo= -1000;
+        for(int a = 0; a < numGrupos - 1; a ++){
+            if(grupos.get(a).getSegundo().getPts() > auxMelhorSegundoPts){
+                auxMelhorSegundoPts = grupos.get(a).getSegundo().getPts();
+                auxMelhorSegundoSaldo = grupos.get(a).getSegundo().getSaldo();
                 melhorSegundo = grupos.get(a).getSegundo();
-            } else if(grupos.get(a+1).getSegundo().getPts() > grupos.get(a).getSegundo().getPts()){
-                melhorSegundo = grupos.get(a+1).getSegundo();
-            } else{
-                if(grupos.get(a).getSegundo().getSaldo() > grupos.get(a+1).getSegundo().getSaldo()){
+            } else if(grupos.get(a).getSegundo().getPts() == auxMelhorSegundoPts){
+                if(grupos.get(a).getSegundo().getSaldo() > auxMelhorSegundoSaldo){
+                    auxMelhorSegundoPts = grupos.get(a).getSegundo().getPts();
+                    auxMelhorSegundoSaldo = grupos.get(a).getSegundo().getSaldo();
                     melhorSegundo = grupos.get(a).getSegundo();
-                } else if(grupos.get(a+1).getSegundo().getSaldo() > grupos.get(a).getSegundo().getSaldo()){
-                    melhorSegundo = grupos.get(a+1).getSegundo();
-                }else{
+                } else if(grupos.get(a).getSegundo().getSaldo() == auxMelhorSegundoSaldo){
                     Random r = new Random();
                     int aleatorio = r.nextInt(2);
-                    if(aleatorio == 0){
+                    if (aleatorio == 0){
+                        auxMelhorSegundoPts = grupos.get(a).getSegundo().getPts();
+                        auxMelhorSegundoSaldo = grupos.get(a).getSegundo().getSaldo();
                         melhorSegundo = grupos.get(a).getSegundo();
                     } else{
+                        auxMelhorSegundoPts = grupos.get(a+1).getSegundo().getPts();
+                        auxMelhorSegundoSaldo = grupos.get(a+1).getSegundo().getSaldo();
                         melhorSegundo = grupos.get(a+1).getSegundo();
                     }
                 }
             }
         }
+        
         System.out.println(melhorSegundo.getNome() + " passou pois foi o melhor segundo colocado da copa");
         jogadoresMataMata.set(3,melhorSegundo);
     }
