@@ -62,10 +62,9 @@ public class Main {
             copa.getGrupo(a).organizaJogos(a+1, copa.getNumGrupos());
         }
         
-        boolean sair = false;
         //apresentando o menu
         int op = fazMenu();
-        while(!sair){
+        while(true){
             
             for(int a = 0; a < copa.getNumGrupos(); a++){
                 /*Loop para fazer cada grupo ficar dinamico, ou seja, o que tem mais pontos fica 
@@ -74,7 +73,6 @@ public class Main {
             }
             
             if(op == 1){
-                //System.out.println("");
                 //apresentando os grupos e as estatísticas
                 copa.printaGrupos();
             } else if(op == 2){
@@ -87,6 +85,7 @@ public class Main {
                 System.out.println("");
                 
             } else if(op == 3){
+                //apresentando os resultados dos jogos
                 for(int a = 0; a < copa.getNumGrupos(); a++){
                    for(int b = 0; b < copa.getNumJogGrupo(); b++){
                        System.out.println("\n" + copa.getGrupo(b).getJogo(a).getJogo() + " - " + copa.getGrupo(b).getJogo(a).getPlacar());
@@ -130,19 +129,14 @@ public class Main {
                         }
                     }
                 }
+                
             } else if(op == 5){
                 //verificando se todas as partidas ja foram jogadas para passar para a proxima fase
                 if(copa.getPartidasJogadasGrupos() == copa.getNumGrupos() * copa.getGrupo(0).getNumJogos()){
                     copa.passarFase();     
                     copa.geraSemis();
                     copa.printaSemis();
-                    
-                    
-                    ///////CONTINUAR A REFATORAR A PARTIR DESTE PONTO
-                    
-                    
-                    System.out.print("(0) Voltar");
-                    System.out.println("");
+                    System.out.print("(0) Voltar\n");
                     System.out.print("\nDigite o numero do jogo que deseja inserir um placar, ou 0 para voltar: ");
                     int op3 = sc.nextInt();
                     while(op3 != 0 && op3 != 10 && op3 != 11){
@@ -155,10 +149,8 @@ public class Main {
                             System.out.println("\nDefinindo placar para o jogo " + op3 + ": " + copa.getSemi(op3-10).getJogo());
                             System.out.print("\nDigite os gols do " + copa.getSemi(op3-10).getJog1().getNome() + ": ");
                             int gols1 = sc.nextInt();
-                            //copa.getSemi(op3-10).getJog1().setGolsMataMata(gols1);
                             System.out.print("\nDigite os gols do " + copa.getSemi(op3-10).getJog2().getNome() + ": ");
                             int gols2 = sc.nextInt();
-                            //copa.getSemi(op3-10).getJog2().setGolsMataMata(gols2);
                             while(gols1 == gols2){
                                 System.out.println("\nComo houve um empate, a partida deve ser decidia nos penaltis");
                                 System.out.print("\nDigite os penaltis convertidos por " + copa.getSemi(op3-10).getJog1().getNome() + ": ");
@@ -167,7 +159,6 @@ public class Main {
                                 int pen2 = sc.nextInt();
                                 gols1 = pen1;
                                 gols2 = pen2;
-
                             } 
 
                             copa.getSemi(op3-10).setPlacar(gols1, gols2);
@@ -189,10 +180,8 @@ public class Main {
                 if(copa.getPartidasJogadasSemi() == 2){
                     System.out.println("\n        Final da copa");
                     copa.passarFinal();
-                    //copa.geraFinal();
                     System.out.println("\n(" + copa.getFinalCopa().getNumJogo() + ") " + copa.getFinalCopa().getJogo());
-                    System.out.print("(0) Voltar");
-                    System.out.println("");
+                    System.out.print("(0) Voltar\n");
                     System.out.print("\nDigite o numero do jogo que deseja inserir um placar, ou 0 para voltar: ");
                     int op4 = sc.nextInt();
                     while(op4 != 0 && op4 != copa.getFinalCopa().getNumJogo()){
@@ -204,10 +193,8 @@ public class Main {
                         System.out.println("\nDefinindo placar para o jogo " + copa.getFinalCopa().getNumJogo() + ": " + copa.getFinalCopa().getJogo());
                         System.out.print("\nDigite os gols do " + copa.getFinalCopa().getJog1().getNome() + ": ");
                         int gols1 = sc.nextInt();
-                        //copa.getSemi(op3-10).getJog1().setGolsMataMata(gols1);
                         System.out.print("\nDigite os gols do " + copa.getFinalCopa().getJog2().getNome() + ": ");
                         int gols2 = sc.nextInt();
-                        //copa.getSemi(op3-10).getJog2().setGolsMataMata(gols2);
                         while(gols1 == gols2){
                             System.out.println("\nComo houve um empate, a partida deve ser decidia nos penaltis");
                             System.out.print("\nDigite os penaltis convertidos por " + copa.getFinalCopa().getJog1().getNome() +": ");
@@ -220,45 +207,35 @@ public class Main {
 
                         copa.defineCampeao(gols1, gols2);
                         System.out.println("\nO campeao da Copa Cincao eh " + copa.getCampeao().getNome());
-                        sair = true;
-                        break;
-                        //copa.jogaFinal(gols1, gols2);
+                        break; //encerra o programa
                     } 
 
-                        /*copa.getSemi(op3-10).setPlacar(gols1, gols2);
-                        copa.getSemi(op3-10).getJog1().setGolsMataMata(gols1);
-                        copa.getSemi(op3-10).getJog2().setGolsMataMata(gols2);
-                    copa.jogaFinal(gols1, gols2);*/
                 } else{
                     System.out.println("\nAinda nao eh possivel ir para a final. Todas as partidas das semi finais precisam ser jogadas");
                 }
 
 
-                }else{
-                    System.out.println("\nTem certeza que deseja sair do programa? Seu progresso sera perdido!" +
-                                       "\n\n1 - Sim, quero sair" +
-                                       "\n2 - Nao, quero ficar");
-                    System.out.print("\nDigite uma opcao: ");
-                    int op3 = sc.nextInt();
-                    while (op3 < 1 || op3 > 2){
-                        System.out.print("\nOpao invalida, digite novamente: ");
-                        op3 = sc.nextInt();
-                    }
-                    if(op3 == 1){
-                        sair = true;
-                        break;
-                    } else{
-                        System.out.print("");
-                    }
+            }else{
+                System.out.println("\nTem certeza que deseja sair do programa? Seu progresso sera perdido!" +
+                                   "\n\n1 - Sim, quero sair" +
+                                   "\n2 - Nao, quero ficar");
+                System.out.print("\nDigite uma opcao: ");
+                int op3 = sc.nextInt();
+                while (op3 < 1 || op3 > 2){
+                    System.out.print("\nOpao invalida, digite novamente: ");
+                    op3 = sc.nextInt();
                 }
-            //copa.printaGrupos();
+                if(op3 == 1){
+                    break; //encerra o programa
+                } else{
+                    System.out.print("");
+                }
+            }
             op = fazMenu();
         }
         
         System.out.println("\nSaiu!");   
         
-       
-           
-       }
-    }
+   }
+}
 

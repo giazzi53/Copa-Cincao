@@ -5,17 +5,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author GuilhermeSilvestreGi
- */
-
 public class Copa {
     Scanner sc = new Scanner(System.in); //input caso alguma partida va para os penaltis
     private Jogador campeao;
@@ -23,7 +12,6 @@ public class Copa {
     private List<Grupo> grupos = new ArrayList();
     private int numGrupos;
     private int numJogGrupo;
-    //private List<Integer> auxJogos = new ArrayList();
     private int partidasJogadasGrupos;
     private int partidasJogadasSemi;
     private Jogador melhorSegundo;
@@ -33,14 +21,7 @@ public class Copa {
     private Jogo finalCopa;
        
     public Copa(){
-        //loops para sobrepor os jogadores do mata mata caso seja necessario executar a funcao passarFase() outra vez devido ao bug
-        for(int a = 0; a < 4; a++){
-            jogadoresMataMata.add(null);
-        }
         
-        for(int a = 0; a < 2; a++){
-            semis.add(null);
-        }
     }
     
     public Jogador getCampeao() {
@@ -138,7 +119,7 @@ public class Copa {
                 Jogo semi = new Jogo(jogadoresMataMata.get(cont), jogadoresMataMata.get(cont + 1), auxNumJogo);   
                 cont += 2;
                 auxNumJogo++;
-                semis.set(a,semi);
+                semis.add(semi);
             }
             jaGerouSemis = true;
         }
@@ -150,7 +131,7 @@ public class Copa {
             for(Jogo s : semis){
                 if(s.getJog1().getGolsMataMata() > s.getJog2().getGolsMataMata()){
                     jogadoresFinal.add(s.getJog1());
-                } else if(s.getJog2().getGolsMataMata() > s.getJog1().getGolsMataMata()){
+                } else{
                     jogadoresFinal.add(s.getJog2());
                 } 
             }
@@ -198,7 +179,7 @@ public class Copa {
         //mostrando os primeiros colocados de cada grupo
         for(int a = 0; a < numGrupos; a++){
             System.out.println(grupos.get(a).getPrimeiro().getNome() + " passou pois ficou em primeiro do Grupo " + grupos.get(a).getNumGrupo());
-            jogadoresMataMata.set(a,grupos.get(a).getPrimeiro());
+            jogadoresMataMata.add(grupos.get(a).getPrimeiro());
         }
         
         //definindo o melhor segundo colocado. Se a pontuacao for igual, o criterio de desempate eh o saldo de gols. 
@@ -233,6 +214,6 @@ public class Copa {
         }
         
         System.out.println(melhorSegundo.getNome() + " passou pois foi o melhor segundo colocado da copa");
-        jogadoresMataMata.set(3,melhorSegundo);
+        jogadoresMataMata.add(melhorSegundo);
     }
 }

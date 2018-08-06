@@ -1,18 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author GuilhermeSilvestreGi
- */
 public class Jogo {
     private Jogador jog1;
     private Jogador jog2;
     private int numJogo;
-    private String placar = "";
+    private String placar;
     
     public Jogo(){
         
@@ -22,6 +12,7 @@ public class Jogo {
         this.jog1 = jog1;
         this.jog2 = jog2;
         this.numJogo = numJogo;
+        this.placar = "";
     }
 
     public Jogador getJog1() {
@@ -56,29 +47,21 @@ public class Jogo {
         return placar;
     }
     
-    //boolean jaFoi = false;
     public void setPlacar(int gols1, int gols2){
-        //placar = gols1 + " X " + gols2;
-        
-        //if(!jaFoi){
-            int saldo1 = gols1 - gols2;
-            int saldo2 = gols2 - gols1;
-            if(gols1 > gols2){
-                jog1.setResult(3, saldo1);
-                jog2.setResult(0, saldo2);
-            } else if(gols2 > gols1){
-                jog2.setResult(3, saldo2);
-                jog1.setResult(0, saldo1);
-            } else{
-                jog1.setResult(1, saldo1);
-                jog2.setResult(1, saldo2);
-            }
-            
-            placar = gols1 + " X " + gols2;
-                    
-        /*} else{
-            System.out.println("\nEsta partida ja foi jogada, ela ja possui um placar");
+        int saldo1 = gols1 - gols2;
+        int saldo2 = gols2 - gols1;
+        if(gols1 > gols2){
+            jog1.setResult(3, saldo1);
+            jog2.setResult(0, saldo2);
+        } else if(gols2 > gols1){
+            jog2.setResult(3, saldo2);
+            jog1.setResult(0, saldo1);
+        } else{
+            jog1.setResult(1, saldo1);
+            jog2.setResult(1, saldo2);
         }
-        jaFoi = true;*/
+
+        placar = gols1 + " X " + gols2;
+
     }
 }
